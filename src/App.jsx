@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import Form from './components/Form/ContactForm';
 import ContactList from './components/ContactList/ContactList';
-import Section from './components/Contact/Contact';
-import Filter from './components/SearchBox/SearchBox';
-import { AppStyled } from './App.styled';
+import SearchBox from './components/SearchBox/SearchBox';
+import { Title } from './App.styled.jsx';
+import { AppStyled } from './App.styled.jsx';
 
 const App = () => {
   const [contacts, setContacts] = useState(() => {
@@ -51,23 +51,19 @@ const App = () => {
 
   return (
     <AppStyled>
-      <Section title="Phonebook">
-        <Form onSubmit={addContact} />
-      </Section>
-      <Section title="Contacts">
-        <Filter
-          value={filter}
-          onChange={changeFilter}
-        />
-        <ContactList
-          contacts={filteredContacts()}
-          onDelete={deleteContact}
-        />
-      </Section>
+      <Title>Phonebook</Title>
+      <Form onSubmit={addContact} />
+      <Title>Contacts</Title>
+      <SearchBox
+        value={filter}
+        onChange={changeFilter}
+      />
+      <ContactList
+        contacts={filteredContacts()}
+        onDelete={deleteContact}
+      />
     </AppStyled>
   );
 };
 
 export default App;
-
-

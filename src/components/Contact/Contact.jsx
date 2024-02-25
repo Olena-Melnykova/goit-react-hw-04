@@ -1,17 +1,17 @@
 import PropTypes from 'prop-types';
-import { Title } from './Contact.styled';
+import { ContactContainer, ContactName, Button } from './Contact.styled.jsx'; 
 
-const Section = ({ title, children }) => {
-  return (
-    <div>
-      <Title>{title}</Title>
-      {children}
-    </div>
-  );
+const Contact = ({ name, number, onDelete }) => (
+  <ContactContainer>
+    <ContactName>{name}: {number}</ContactName>
+    <Button onClick={onDelete}>Delete</Button>
+  </ContactContainer>
+);
+
+Contact.propTypes = {
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
-Section.propTypes = {
-  title: PropTypes.string.isRequired,
-};
-
-export default Section;
+export default Contact;

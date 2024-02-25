@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 import { Input, Label, FormStyled } from '../Form/ContactForm.styled';
 
-const Filter = ({ value, onChange }) => {
+const SearchBox = ({ value, onChange }) => {
     const filterId = nanoid();
 
     return (
@@ -20,4 +20,4 @@ const Filter = ({ value, onChange }) => {
     );
 };
 
-export default Filter;
+export default SearchBox;

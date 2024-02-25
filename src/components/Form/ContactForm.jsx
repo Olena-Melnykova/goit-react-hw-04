@@ -1,8 +1,8 @@
 import { nanoid } from 'nanoid';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup'; 
-import { FormStyled, Input, Label } from './ContactForm.styled';
-import { Button } from '../ContactList/ContactList.styled';
+import { FormStyled, Input, Label } from './ContactForm.styled.jsx';
+import { Button } from '../Contact/Contact.styled.jsx';
 
 
 const validationSchema = Yup.object({
@@ -16,7 +16,7 @@ const validationSchema = Yup.object({
     .required('Заповни це поле, будь ласочка!'),
 });
 
-function FormikForm({ onSubmit }) {
+function ContactForm({ onSubmit }) {
   const nameId = nanoid();
   const numberId = nanoid();
 
@@ -58,4 +58,4 @@ function FormikForm({ onSubmit }) {
   );
 }
 
-export default FormikForm;
+export default ContactForm;
