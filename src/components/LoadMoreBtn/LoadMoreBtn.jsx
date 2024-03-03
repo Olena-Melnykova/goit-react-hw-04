@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { LoadMoreStyled } from './LoadMoreBtn.styled.jsx';
 
-export const LoadMoreBtn = ({onLoad}) => {
+const LoadMoreBtn = ({onLoad}) => {
     return (
         <LoadMoreStyled
             type = "button"
@@ -15,3 +15,5 @@ export const LoadMoreBtn = ({onLoad}) => {
 LoadMoreBtn.propTypes = {
     onLoad: PropTypes.func.isRequired,
 };
+
+export default LoadMoreBtn;

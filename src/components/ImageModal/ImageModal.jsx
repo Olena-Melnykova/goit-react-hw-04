@@ -1,42 +1,60 @@
-import { useEffect } from 'react';
-import { createPortal } from 'react-dom';
+import { useState, useEffect, useCallback } from 'react';
+import Modal from 'react-modal';
 import PropTypes from 'prop-types';
-import { ModalStyled, ModalOverlay } from './ImageModal.styled.jsx';
 
-const modalRoot = document.querySelector('#modal-root');
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+};
 
-const ImageModal = ({ onClose, children }) => {
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (e.code === 'Escape') {
-                onClose();
-            }
-        };
+Modal.setAppElement('#root');
 
-        window.addEventListener('keydown', handleKeyDown);
+const ImageModal = ({ onClose, image }) => {
+  const [modalIsOpen, setIsOpen] = useState(true);
 
-        return () => {
-            window.removeEventListener('keydown', handleKeyDown);
-        };
-    }, [onClose]);
+  const closeModal = useCallback(() => {
+    setIsOpen(false);
+    onClose();
+  }, [onClose]); 
 
-    const handleOverlayClick = (e) => {
-        if (e.currentTarget === e.target) {
-            onClose();
-        }
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.code === 'Escape') {
+        closeModal();
+      }
     };
 
-    return createPortal(
-        <ModalOverlay onClick={handleOverlayClick}>
-            <ModalStyled>{children}</ModalStyled>
-        </ModalOverlay>,
-        modalRoot
-    );
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [closeModal]);
+
+  return (
+    <Modal
+      isOpen={modalIsOpen}
+      onRequestClose={closeModal}
+      style={customStyles}
+      contentLabel="Image Modal"
+    >
+      <button onClick={closeModal}>X</button>
+      {image && <img src={image.largeImageURL} alt={image.description} />}
+    </Modal>
+  );
 };
 
 ImageModal.propTypes = {
-    onClose: PropTypes.func.isRequired,
-    children: PropTypes.node,
+  onClose: PropTypes.func.isRequired,
+  image: PropTypes.shape({
+    largeImageURL: PropTypes.string.isRequired,
+    description: PropTypes.string,
+  }),
 };
 
 export default ImageModal;

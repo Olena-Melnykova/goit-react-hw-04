@@ -6,3 +6,4 @@ export const AppStyled = styled.div`
   grid-gap: 16px;
   padding-bottom: 24px;
 `;
+
